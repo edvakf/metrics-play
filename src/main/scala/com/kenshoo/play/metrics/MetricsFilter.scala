@@ -15,6 +15,8 @@
 */
 package com.kenshoo.play.metrics
 
+import javax.inject.Inject
+
 import play.api.mvc._
 import play.api.http.Status
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
@@ -89,4 +91,8 @@ class JavaMetricsFilter extends MetricsFilter {
 
 object MetricsFilter extends MetricsFilter {
   override def registry = MetricsRegistry.defaultRegistry
+}
+
+class MetricsFilter2 @Inject() (metricsRegistry: MetricsRegistryInterface) extends MetricsFilter {
+  override def registry = metricsRegistry.defaultRegistry
 }

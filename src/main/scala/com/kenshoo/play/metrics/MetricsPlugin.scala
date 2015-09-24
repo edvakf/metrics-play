@@ -22,14 +22,13 @@ import com.codahale.metrics.logback.InstrumentedAppender
 import play.api.{Logger, Application, Play, Plugin}
 
 import com.codahale.metrics.{JvmAttributeGaugeSet, MetricRegistry, SharedMetricRegistries}
-import com.codahale.metrics.json.MetricsModule
 import com.codahale.metrics.jvm.{ThreadStatesGaugeSet, GarbageCollectorMetricSet, MemoryUsageGaugeSet}
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
 import javax.inject.Inject
 
-object MetricsRegistry {
+object MetricsRegistry extends MetricsRegistryInterface {
 
   def defaultRegistry = Play.current.plugin[MetricsPlugin] match {
     case Some(plugin) => SharedMetricRegistries.getOrCreate(plugin.registryName)
@@ -41,7 +40,7 @@ object MetricsRegistry {
 }
 
 
-class MetricsPlugin @Inject() (val app: Application) extends Plugin {
+class MetricsPlugin @Inject() (val app: Application) extends Plugin with MetricsHolderInterface {
   val validUnits = Some(Set("NANOSECONDS", "MICROSECONDS", "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS"))
 
   val mapper: ObjectMapper = new ObjectMapper()
@@ -82,7 +81,7 @@ class MetricsPlugin @Inject() (val app: Application) extends Plugin {
       setupJvmMetrics(registry)
       setupLogbackMetrics(registry)
 
-      val module = new MetricsModule(rateUnit, durationUnit, showSamples)
+      val module = new com.codahale.metrics.json.MetricsModule(rateUnit, durationUnit, showSamples)
       mapper.registerModule(module)
     }
   }

@@ -16,6 +16,7 @@
 package com.kenshoo.play.metrics
 
 import java.io.StringWriter
+import javax.inject.Inject
 
 import play.api.{Application, Play}
 import play.api.mvc.{Action, Controller}
@@ -29,7 +30,7 @@ trait MetricsController {
 
   def registry: MetricRegistry
 
-  def app: Application
+  def metricsHolderOption: Option[MetricsHolderInterface]
 
   def serialize(mapper: ObjectMapper) = {
     val writer: ObjectWriter = mapper.writerWithDefaultPrettyPrinter()
@@ -39,10 +40,10 @@ trait MetricsController {
   }
 
   def metrics = Action {
-    app.plugin[MetricsPlugin] match {
-      case Some(plugin) =>
-        if (plugin.enabled)
-          serialize(plugin.mapper)
+    metricsHolderOption match {
+      case Some(holder) =>
+        if (holder.enabled)
+          serialize(holder.mapper)
         else
           InternalServerError("metrics plugin not enabled")
       case None => InternalServerError("metrics plugin is not found")
@@ -53,5 +54,21 @@ trait MetricsController {
 
 object MetricsController extends Controller with MetricsController {
   def registry = MetricsRegistry.defaultRegistry
-  def app = Play.current
+  def metricsHolderOption = Play.current.plugin[MetricsPlugin]
+}
+
+class MetricsController2 @Inject() (metricsRegistry: MetricsRegistryInterface, metricsHolder: MetricsHolderInterface) extends Controller with MetricsController {
+  def registry = metricsRegistry.defaultRegistry
+  def metricsHolderOption: Option[MetricsHolderInterface] = Some(metricsHolder)
+
+  override def metrics = Action {
+    metricsHolderOption match {
+      case Some(holder) =>
+        if (holder.enabled)
+          serialize(holder.mapper)
+        else
+          InternalServerError("metrics plugin not enabled")
+      case None => InternalServerError("metrics plugin is not found")
+    }
+  }
 }
