@@ -1,3 +1,5 @@
+***THIS IS A FORK OF [kenshoo/metrics-play](https://github.com/kenshoo/metrics-play). IT WILL STOP MAINTENANCE ONCE [MY PULL REQUEST](https://github.com/kenshoo/metrics-play/pull/45) IS MERGED.***
+
 # metrics-play
 
 This module provides some support for @codahale [Metrics](https://dropwizard.github.io/metrics/3.1.0/) library in a Play2 application (Scala)
