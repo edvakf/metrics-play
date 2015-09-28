@@ -20,9 +20,11 @@ Play Version: 2.4.0, Metrics Version: 3.1.1, Scala Versions: 2.11.6
 Add metrics-play dependency:
 
 ```scala
+    resolvers += "metrics-play" at "https://edvakf.github.io/tmp-metrics-play-artifacts/"
+
     val appDependencies = Seq(
     ...
-    "com.kenshoo" %% "metrics-play" % "2.4.0_0.4.0"
+    "com.github.edvakf" %% "metrics-play" % "2.4.0_0.4.0"
     )
 ```
 
