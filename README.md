@@ -5,6 +5,7 @@
 This module provides some support for @codahale [Metrics](https://dropwizard.github.io/metrics/3.1.0/) library in a Play2 application (Scala)
 
 [![Build Status](https://travis-ci.org/edvakf/metrics-play.png)](https://travis-ci.org/edvakf/metrics-play)
+[![Coverage Status](https://coveralls.io/repos/edvakf/metrics-play/badge.svg?branch=master&service=github)](https://coveralls.io/github/edvakf/metrics-play?branch=master)
 
 Play Version: 2.4.3, Metrics Version: 3.1.1, Scala Versions: 2.11.6
 
