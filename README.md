@@ -6,7 +6,7 @@ This module provides some support for @codahale [Metrics](https://dropwizard.git
 
 [![Build Status](https://travis-ci.org/kenshoo/metrics-play.png)](https://travis-ci.org/kenshoo/metrics-play)
 
-Play Version: 2.4.0, Metrics Version: 3.1.1, Scala Versions: 2.11.6
+Play Version: 2.4.3, Metrics Version: 3.1.1, Scala Versions: 2.11.6
 
 ## Features
 
@@ -24,7 +24,7 @@ Add metrics-play dependency:
 
     val appDependencies = Seq(
     ...
-    "com.github.edvakf" %% "metrics-play" % "2.4.0_0.4.0"
+    "com.github.edvakf" %% "metrics-play" % "2.4.3_0.4.0"
     )
 ```
 
@@ -87,6 +87,7 @@ An implementation of the Metrics' instrumenting filter for Play2. It records req
 
 ## Changes
 
+* 2.4.3_0.4.0 - Upgrade to play 2.4.3
 * 2.4.0_0.4.0 - Re-implement as Play Module
 * 2.4.0_0.3.0 - Upgrade to play 2.4, metrics 3.1.2
 * 2.3.0_0.2.1 - Breaking Change! prefix jvm metric names to standardize with dropwizard
